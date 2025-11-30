@@ -8,5 +8,7 @@ I made this primarily for a University Project where a LinkedList was the best J
 
 Currently, this only implements the List<E> functionality, however down the line I would like to further implement both Queue<> and Stack<> functionality as the ADT LinkedList does.
 
+I would like to note that this project will not contain any build tools, and will simply be a playground for the code to exist within.
+
 ### The reason for missing early commits
 All early commits were completed during my University Project on a Private GitLab repository and no, I will not share.
