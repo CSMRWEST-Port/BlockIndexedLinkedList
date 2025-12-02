@@ -67,7 +67,7 @@ public class BlockIndexedLinkedList<E> implements List<E> {
         private int nextIndex;
 
         public CustomListIterator(int index) {
-            nextNode = index == 0 ?  first : getNode(index);
+            nextNode = index == 0 ?  first : listTraverse(index);
             nextIndex = index;
         }
 
@@ -311,11 +311,6 @@ public class BlockIndexedLinkedList<E> implements List<E> {
         return cur.data;
     }
 
-    private ListNode<E> getNode(int index) {
-        ListNode<E> cur = listTraverse(index);
-        return cur;
-    }
-
     @Override
     public E set(int index, E element) {
         ListNode<E> cur = listTraverse(index);
@@ -327,6 +322,8 @@ public class BlockIndexedLinkedList<E> implements List<E> {
     private ListNode<E> listTraverse(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + " out of bounds for list size: " + size);
+        } else if (index == size) {
+            return last;
         }
         int i = index / BLOCK_SIZE;
         ListNode<E> cur = indexList.get(i);
@@ -413,12 +410,13 @@ public class BlockIndexedLinkedList<E> implements List<E> {
 
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        List<E> returnable = new BlockIndexedLinkedList();
+        List<E> returnable = new BlockIndexedLinkedList<E>();
         ListNode<E> cur = listTraverse(fromIndex);
         for (int i = fromIndex; i <= toIndex; i++) {
             returnable.add(cur.data);
         }
         return returnable;
     }
+
 }
 
