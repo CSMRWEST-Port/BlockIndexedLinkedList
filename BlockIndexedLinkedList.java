@@ -1,5 +1,3 @@
-package com.projects.opt;
-
 import javax.naming.OperationNotSupportedException;
 import java.util.*;
 
