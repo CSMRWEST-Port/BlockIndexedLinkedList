@@ -1,3 +1,5 @@
+package com.projects.opt;
+
 import javax.naming.OperationNotSupportedException;
 import java.util.*;
 
@@ -191,7 +193,6 @@ public class BlockIndexedLinkedList<E> implements List<E> {
             first = new ListNode<>(e);
             last = first;
             size++;
-            return true;
         } else {
             ListNode<E> prevLast = last;
             ListNode<E> newNode = new ListNode<>(e);
@@ -202,9 +203,8 @@ public class BlockIndexedLinkedList<E> implements List<E> {
             if (size % BLOCK_SIZE == 0) {
                 indexList.add(newNode);
             }
-            return true;
         }
-
+        return true;
     }
 
     @Override
@@ -320,13 +320,13 @@ public class BlockIndexedLinkedList<E> implements List<E> {
     }
 
     private ListNode<E> listTraverse(int index) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index: " + index + " out of bounds for list size: " + size);
-        } else if (index == size) {
+        } else if (index == size - 1) {
             return last;
         }
         int i = index / BLOCK_SIZE;
-        ListNode<E> cur = indexList.get(i);
+        ListNode<E> cur = i == 0 ? first : indexList.get(i-1);
         i *= 10;
         for (; i < index; i++) {
             cur = cur.next;
@@ -410,7 +410,7 @@ public class BlockIndexedLinkedList<E> implements List<E> {
 
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        List<E> returnable = new BlockIndexedLinkedList<E>();
+        List<E> returnable = new BlockIndexedLinkedList<>();
         ListNode<E> cur = listTraverse(fromIndex);
         for (int i = fromIndex; i <= toIndex; i++) {
             returnable.add(cur.data);
@@ -419,4 +419,3 @@ public class BlockIndexedLinkedList<E> implements List<E> {
     }
 
 }
-
